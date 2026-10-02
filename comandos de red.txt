@@ -1,0 +1,7 @@
+ ping google.com
+     curl ifconfig.me
+    nslook. google.com
+    nslookup google.com
+tracepath google.com
+   ss -tuln
+   history
