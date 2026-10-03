@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#20362d">
+	<meta name="description" content="Café frío, hecho lento. Descubre la carta de Bruma, café helado de especialidad.">
+	<title>Bruma — Café frío, hecho lento</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: light;
+			--forest: #20362d;
+			--leaf: #c6e36b;
+			--cream: #f5f3e9;
+			--paper: #fffef9;
+			--pink: #e87561;
+			--ink: #202820;
+			--muted: #69736a;
+			--line: #dce0d4;
+			--serif: "Playfair Display", Georgia, serif;
+			--sans: "DM Sans", sans-serif;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); }
+		button, a { font: inherit; }
+		a { color: inherit; text-decoration: none; }
+
+		.hero {
+			min-height: 690px;
+			height: min(790px, 94svh);
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			isolation: isolate;
+			color: white;
+			background: var(--forest);
+		}
+		.hero::before {
+			content: "";
+			position: absolute;
+			z-index: -1;
+			inset: 0;
+			background: linear-gradient(90deg, rgba(13, 28, 22, .76) 0%, rgba(13, 28, 22, .47) 46%, rgba(13, 28, 22, .04) 100%), linear-gradient(0deg, rgba(13, 28, 22, .38), transparent 38%);
+		}
+		.hero-image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 57%; }
+		.topbar { height: 88px; padding: 0 7.2%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.24); }
+		.wordmark { font-weight: 700; font-size: 25px; letter-spacing: 0; }
+		.wordmark span { color: var(--leaf); }
+		.nav-links { display: flex; align-items: center; gap: 38px; font-size: 14px; }
+		.nav-links a { transition: color .2s; }
+		.nav-links a:hover { color: var(--leaf); }
+		.nav-order { display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(255,255,255,.62); padding: 11px 16px; border-radius: 3px; }
+		.cart-count { min-width: 20px; height: 20px; border-radius: 50%; display: inline-grid; place-items: center; color: var(--forest); background: var(--leaf); font-size: 11px; font-weight: 700; }
+		.hero-content { width: min(1180px, 85.6%); margin: auto; padding: 54px 0 76px; animation: arrive .75s ease-out both; }
+		.eyebrow { margin: 0 0 20px; color: var(--leaf); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+		h1 { max-width: 720px; margin: 0; font: 500 clamp(66px, 9vw, 122px)/.94 var(--serif); letter-spacing: 0; }
+		h1 span { color: var(--leaf); font-style: italic; }
+		.hero-copy { max-width: 425px; margin: 25px 0 30px; color: rgba(255,255,255,.88); font-size: 16px; line-height: 1.65; }
+		.primary-link { display: inline-flex; align-items: center; gap: 16px; padding: 15px 20px; color: var(--forest); background: var(--leaf); border: 0; border-radius: 3px; font-size: 14px; font-weight: 700; transition: transform .2s, background .2s; }
+		.primary-link:hover { transform: translateY(-2px); background: #d7f08a; }
+		.primary-link span { font-size: 19px; line-height: 12px; }
+		.hero-note { position: absolute; right: 7.2%; bottom: 40px; display: flex; align-items: center; gap: 11px; color: rgba(255,255,255,.84); font-size: 12px; }
+		.hero-note::before { content: ""; width: 28px; height: 1px; background: var(--leaf); }
+
+		.ticker { overflow: hidden; color: var(--forest); background: var(--leaf); }
+		.ticker-track { min-height: 52px; display: flex; justify-content: center; align-items: center; gap: clamp(18px, 4vw, 54px); white-space: nowrap; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+		.ticker-track span::after { content: "✳"; margin-left: clamp(18px, 4vw, 54px); color: var(--pink); }
+
+		.menu-section { padding: 100px max(7.2%, calc((100% - 1180px) / 2)) 112px; }
+		.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 37px; }
+		.section-heading .eyebrow { color: #687938; margin-bottom: 12px; }
+		h2 { margin: 0; color: var(--forest); font: 500 clamp(38px, 5vw, 58px)/1.05 var(--serif); letter-spacing: 0; }
+		.section-intro { max-width: 330px; margin: 0 0 4px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+		.menu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+		.drink { min-width: 0; background: var(--paper); }
+		.drink-photo { width: 100%; aspect-ratio: 1.18; display: block; object-fit: cover; background: #d7dfcf; }
+		.drink-info { padding: 20px 20px 19px; }
+		.drink-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+		.drink h3 { margin: 0; color: var(--forest); font: 600 22px/1.2 var(--serif); }
+		.price { color: var(--forest); font-size: 14px; font-weight: 700; white-space: nowrap; }
+		.drink p { min-height: 43px; margin: 9px 0 18px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+		.add-button { display: flex; width: 100%; align-items: center; justify-content: space-between; padding: 12px 0 0; color: var(--forest); background: transparent; border: 0; border-top: 1px solid var(--line); cursor: pointer; font-size: 13px; font-weight: 700; text-align: left; }
+		.add-button span:last-child { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: var(--forest); background: var(--leaf); font-size: 18px; line-height: 1; transition: transform .2s; }
+		.add-button:hover span:last-child { transform: rotate(90deg); }
+
+		.manifesto { display: grid; grid-template-columns: 1fr 1fr; min-height: 425px; color: white; background: var(--forest); }
+		.manifesto-image { width: 100%; height: 100%; min-height: 425px; object-fit: cover; }
+		.manifesto-copy { align-self: center; padding: 70px clamp(34px, 8vw, 120px); }
+		.manifesto-copy .eyebrow { color: var(--leaf); }
+		.manifesto h2 { max-width: 460px; color: white; font-size: clamp(38px, 4.8vw, 58px); }
+		.manifesto-copy p:not(.eyebrow) { max-width: 410px; color: rgba(255,255,255,.75); font-size: 14px; line-height: 1.8; }
+		.manifesto-mark { margin-top: 26px; color: var(--leaf); font: italic 18px var(--serif); }
+
+		.visit { padding: 82px 7.2%; display: flex; justify-content: space-between; align-items: center; gap: 30px; background: #e9eddd; }
+		.visit .eyebrow { color: #687938; margin-bottom: 10px; }
+		.visit h2 { font-size: clamp(34px, 4vw, 48px); }
+		.visit p:not(.eyebrow) { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+		.visit-link { display: inline-flex; gap: 13px; align-items: center; padding: 15px 19px; color: white; background: var(--forest); border-radius: 3px; font-size: 13px; font-weight: 700; transition: background .2s; }
+		.visit-link:hover { background: #385b48; }
+		footer { padding: 25px 7.2%; display: flex; justify-content: space-between; gap: 18px; color: rgba(255,255,255,.75); background: #172820; font-size: 12px; }
+		footer .wordmark { color: white; font-size: 19px; }
+
+		.order-panel { position: fixed; z-index: 5; right: 22px; bottom: 22px; width: min(360px, calc(100vw - 32px)); padding: 20px; color: var(--ink); background: var(--paper); border: 1px solid var(--line); box-shadow: 0 15px 55px rgba(20,35,25,.2); transform: translateY(calc(100% + 36px)); opacity: 0; transition: transform .28s ease, opacity .28s ease; }
+		.order-panel.is-open { transform: translateY(0); opacity: 1; }
+		.order-panel-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+		.order-panel h2 { font-size: 24px; }
+		.close-order { width: 32px; height: 32px; border: 0; background: transparent; cursor: pointer; font-size: 22px; }
+		.order-items { max-height: 190px; overflow: auto; padding: 8px 0; }
+		.order-line { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; font-size: 13px; }
+		.order-total { display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--line); font-weight: 700; }
+		.order-message { margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+		.order-message.is-success { color: #35643e; font-weight: 600; }
+		.checkout { width: 100%; margin-top: 15px; padding: 13px; color: var(--forest); background: var(--leaf); border: 0; cursor: pointer; font-weight: 700; }
+		.checkout:disabled { cursor: default; opacity: .55; }
+		.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+		@keyframes arrive { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+		@media (max-width: 760px) {
+			.hero { min-height: 640px; height: 88svh; max-height: 780px; }
+			.hero-image { object-position: 60% center; }
+			.hero::before { background: linear-gradient(90deg, rgba(13,28,22,.76), rgba(13,28,22,.22)), linear-gradient(0deg, rgba(13,28,22,.35), transparent 45%); }
+			.topbar { height: 72px; padding: 0 6%; }
+			.nav-links { gap: 18px; }
+			.nav-links > a:not(.nav-order) { display: none; }
+			.nav-order { padding: 9px 12px; }
+			.hero-content { width: 88%; padding-bottom: 78px; }
+			h1 { font-size: clamp(65px, 15vw, 100px); }
+			.hero-copy { max-width: 350px; font-size: 15px; }
+			.hero-note { right: 6%; bottom: 26px; }
+			.ticker-track { justify-content: flex-start; padding-left: 6%; overflow: hidden; }
+			.ticker-track span:nth-child(n+4) { display: none; }
+			.menu-section { padding: 72px 6% 78px; }
+			.section-heading { display: block; margin-bottom: 27px; }
+			.section-intro { margin-top: 14px; }
+			.menu-grid { grid-template-columns: 1fr; gap: 18px; }
+			.drink { display: grid; grid-template-columns: 38% 1fr; }
+			.drink-photo { height: 100%; min-height: 205px; aspect-ratio: auto; }
+			.drink-info { padding: 17px 15px; }
+			.drink h3 { font-size: 19px; }
+			.drink p { min-height: 0; font-size: 12px; margin: 8px 0 14px; }
+			.manifesto { grid-template-columns: 1fr; }
+			.manifesto-image { min-height: 270px; max-height: 340px; }
+			.manifesto-copy { padding: 54px 7%; }
+			.visit { padding: 62px 6%; align-items: flex-start; flex-direction: column; }
+			footer { padding: 22px 6%; flex-wrap: wrap; }
+		}
+		@media (max-width: 390px) {
+			.drink { grid-template-columns: 34% 1fr; }
+			.drink-info { padding: 14px 12px; }
+			.drink h3 { font-size: 17px; }
+			.price { font-size: 12px; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<header class="hero" id="inicio">
+		<img class="hero-image" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=2000&q=88" alt="Vaso de café helado con leche y hielo" fetchpriority="high">
+		<nav class="topbar" aria-label="Navegación principal">
+			<a class="wordmark" href="#inicio" aria-label="Bruma, inicio">bruma<span>.</span></a>
+			<div class="nav-links">
+				<a href="#carta">La carta</a>
+				<a href="#nosotros">Nuestra forma</a>
+				<a class="nav-order" href="#pedido" id="open-order">Tu pedido <span class="cart-count" aria-label="0 productos">0</span></a>
+			</div>
+		</nav>
+		<div class="hero-content">
+			<p class="eyebrow">Café de especialidad · frío de verdad</p>
+			<h1>El café<br>también sabe<br>a <span>verano.</span></h1>
+			<p class="hero-copy">Granos de origen, extracción lenta y mucho hielo. Una pausa fresca, hecha con intención.</p>
+			<a class="primary-link" href="#carta">Encuentra tu favorito <span aria-hidden="true">↘</span></a>
+		</div>
+		<div class="hero-note">Hecho al momento, todos los días</div>
+	</header>
+
+	<div class="ticker" aria-label="Café recién hecho, ingredientes reales, hielo siempre">
+		<div class="ticker-track"><span>Café recién hecho</span><span>Ingredientes reales</span><span>Hielo siempre</span><span>Un sorbo y baja el ritmo</span></div>
+	</div>
+
+	<main>
+		<section class="menu-section" id="carta">
+			<div class="section-heading">
+				<div><p class="eyebrow">La pausa que te hacía falta</p><h2>La carta fría</h2></div>
+				<p class="section-intro">Clásicos con un giro y mezclas que solo encontrarás aquí. Preparados al momento, con leche de tu elección.</p>
+			</div>
+			<div class="menu-grid">
+				<article class="drink">
+					<img class="drink-photo" src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=82" alt="Café cold brew servido con hielo" loading="lazy">
+					<div class="drink-info"><div class="drink-title-row"><h3>Cold brew</h3><span class="price">$85</span></div><p>18 horas de extracción lenta. Suave, dulce y sin prisa.</p><button class="add-button" data-name="Cold brew" data-price="85">Añadir al pedido <span aria-hidden="true">+</span></button></div>
+				</article>
+				<article class="drink">
+					<img class="drink-photo" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=82" alt="Latte frío con leche y cubos de hielo" loading="lazy">
+					<div class="drink-info"><div class="drink-title-row"><h3>Latte de hielo</h3><span class="price">$95</span></div><p>Espresso doble, leche cremosa y hielo. El de todos los días.</p><button class="add-button" data-name="Latte de hielo" data-price="95">Añadir al pedido <span aria-hidden="true">+</span></button></div>
+				</article>
+				<article class="drink">
+					<img class="drink-photo" src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=900&q=82" alt="Café helado de especialidad" loading="lazy">
+					<div class="drink-info"><div class="drink-title-row"><h3>Bruma tonic</h3><span class="price">$105</span></div><p>Cold brew, tónica cítrica y un toque de piel de naranja.</p><button class="add-button" data-name="Bruma tonic" data-price="105">Añadir al pedido <span aria-hidden="true">+</span></button></div>
+				</article>
+			</div>
+		</section>
+
+		<section class="manifesto" id="nosotros">
+			<img class="manifesto-image" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=85" alt="Barista preparando café en la barra" loading="lazy">
+			<div class="manifesto-copy">
+				<p class="eyebrow">De la finca a tu vaso</p>
+				<h2>El buen café no necesita complicarse.</h2>
+				<p>Trabajamos con productores que conocemos por nombre y tostamos en lotes pequeños. Después, dejamos que el tiempo haga su parte. Lo demás es hielo.</p>
+				<div class="manifesto-mark">Con calma, de Bruma.</div>
+			</div>
+		</section>
+
+		<section class="visit" id="visitanos">
+			<div><p class="eyebrow">Pasa por algo frío</p><h2>Nos vemos en la barra.</h2><p>Av. Álvaro Obregón 128, Roma Norte · Lun–Sáb, 8:00–19:00</p></div>
+			<a class="visit-link" href="https://maps.google.com/?q=Av.+Alvaro+Obregon+128+Roma+Norte" target="_blank" rel="noreferrer">Cómo llegar <span aria-hidden="true">↗</span></a>
+		</section>
+	</main>
+
+	<footer><a class="wordmark" href="#inicio">bruma<span>.</span></a><span>© 2026 Bruma Café · Café frío, hecho lento.</span><a href="mailto:hola@brumacafe.mx">hola@brumacafe.mx</a></footer>
+
+	<aside class="order-panel" id="pedido" aria-label="Tu pedido" aria-live="polite">
+		<div class="order-panel-head"><h2>Tu pedido</h2><button class="close-order" type="button" aria-label="Cerrar pedido">×</button></div>
+		<div class="order-items" id="order-items"><p class="order-message">Todavía no hay nada por aquí. Elige algo de la carta.</p></div>
+		<div class="order-total"><span>Total</span><span id="order-total">$0</span></div>
+		<p class="order-message" id="order-message">Paga al recoger en barra.</p>
+		<button class="checkout" type="button" disabled>Confirmar pedido</button>
+	</aside>
+	<div class="sr-only" id="announcements" aria-live="polite"></div>
+
+	<script>
+		const cart = new Map();
+		const panel = document.querySelector('.order-panel');
+		const count = document.querySelector('.cart-count');
+		const itemsElement = document.querySelector('#order-items');
+		const totalElement = document.querySelector('#order-total');
+		const checkoutButton = document.querySelector('.checkout');
+		const announcement = document.querySelector('#announcements');
+
+		function renderCart() {
+			const quantity = [...cart.values()].reduce((sum, item) => sum + item.quantity, 0);
+			const total = [...cart.values()].reduce((sum, item) => sum + item.price * item.quantity, 0);
+			count.textContent = quantity;
+			count.setAttribute('aria-label', `${quantity} ${quantity === 1 ? 'producto' : 'productos'}`);
+			totalElement.textContent = `$${total}`;
+			checkoutButton.disabled = quantity === 0;
+
+			if (!quantity) {
+				itemsElement.innerHTML = '<p class="order-message">Todavía no hay nada por aquí. Elige algo de la carta.</p>';
+				return;
+			}
+
+			itemsElement.innerHTML = [...cart.values()].map(item =>
+				`<div class="order-line"><span>${item.name} × ${item.quantity}</span><span>$${item.price * item.quantity}</span></div>`
+			).join('');
+		}
+
+		document.querySelectorAll('.add-button').forEach(button => {
+			button.addEventListener('click', () => {
+				const { name, price } = button.dataset;
+				const item = cart.get(name) || { name, price: Number(price), quantity: 0 };
+				item.quantity += 1;
+				cart.set(name, item);
+				renderCart();
+				panel.classList.add('is-open');
+				document.querySelector('#order-message').textContent = 'Paga al recoger en barra.';
+				document.querySelector('#order-message').classList.remove('is-success');
+				announcement.textContent = `${name} añadido al pedido.`;
+			});
+		});
+
+		document.querySelector('#open-order').addEventListener('click', event => {
+			event.preventDefault();
+			panel.classList.add('is-open');
+		});
+		document.querySelector('.close-order').addEventListener('click', () => panel.classList.remove('is-open'));
+		checkoutButton.addEventListener('click', () => {
+			document.querySelector('#order-message').textContent = '¡Listo! Tu pedido está anotado. Te esperamos en la barra.';
+			document.querySelector('#order-message').classList.add('is-success');
+			announcement.textContent = 'Pedido confirmado.';
+		});
+	</script>
+</body>
+</html>
